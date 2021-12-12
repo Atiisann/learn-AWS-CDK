@@ -48,3 +48,17 @@ class FirstEc2(core.Stack):
             security_group=sg,
             key_name=key_name,
         )
+
+
+app = core.App()
+FirstEc2(
+    app,
+    "FirstEc2",
+    key_name=app.node.try_get_context("key_name"),
+    env={
+        "region": os.environ["CDK_DEFAULT_REAGION"],
+        "account": os.os.environ["CDK_DEFAULT_ACCOUNT"],
+    },
+)
+
+app.synth()
